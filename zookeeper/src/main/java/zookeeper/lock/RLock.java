@@ -13,8 +13,8 @@ import org.apache.zookeeper.data.Stat;
 
 public class RLock {
 
-	private static final String connectString = "hadoopmaster:2181"	;
-	private static final int sessionTimeout = 2000;
+	private String connectString 	;
+	private int sessionTimeout ;
 	private static final String lockRootNode = "/z_locks";
 
 	private String lockName ;
@@ -39,10 +39,15 @@ public class RLock {
 	 */
 	private boolean locked = false ;
 
-	public RLock(String lockId){
+	public RLock(String zookeeperAddress, int timeout ,String lockId){
 		if(lockId == null || "".equals(lockId.trim())){
 			throw new RuntimeException("lockId不能为空"); 
 		}
+		if(zookeeperAddress == null){
+			throw new RuntimeException("zookeeperAddress不能为空");
+		}
+		this.connectString = zookeeperAddress;
+		this.sessionTimeout = timeout;
 		this.lockName = lockId ;
 	}
 	
@@ -69,6 +74,10 @@ public class RLock {
 		}
 	}
 
+	/**
+	 * 加锁
+	 * @throws Exception
+	 */
 	public void lock() throws Exception{
 		if(!haveInit){
 			init(lockName);
