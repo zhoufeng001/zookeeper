@@ -11,7 +11,7 @@ import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 
-public class RLock {
+public class ZLock {
 
 	private String connectString 	;
 	private int sessionTimeout ;
@@ -39,7 +39,7 @@ public class RLock {
 	 */
 	private boolean locked = false ;
 
-	public RLock(String zookeeperAddress, int timeout ,String lockId){
+	public ZLock(String zookeeperAddress, int timeout ,String lockName){
 		if(lockId == null || "".equals(lockId.trim())){
 			throw new RuntimeException("lockId不能为空"); 
 		}
@@ -48,7 +48,7 @@ public class RLock {
 		}
 		this.connectString = zookeeperAddress;
 		this.sessionTimeout = timeout;
-		this.lockName = lockId ;
+		this.lockName = lockName ;
 	}
 	
 	private void init(String lockId){

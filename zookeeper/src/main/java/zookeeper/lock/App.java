@@ -7,7 +7,7 @@ public class App {
 		for (int i = 0; i < 10; i++) {
 			new Thread(new Runnable() {
 				public void run() {
-					RLock lock = new RLock("hadoopmaster:2181",2000,"lock01");
+					ZLock lock = new ZLock("hadoopmaster:2181",2000,"lock01");
 					while(true){
 						try{
 							try {
