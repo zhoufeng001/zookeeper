@@ -40,8 +40,8 @@ public class ZLock {
 	private boolean locked = false ;
 
 	public ZLock(String zookeeperAddress, int timeout ,String lockName){
-		if(lockId == null || "".equals(lockId.trim())){
-			throw new RuntimeException("lockId不能为空"); 
+		if(lockName == null || "".equals(lockName.trim())){
+			throw new RuntimeException("lockName不能为空"); 
 		}
 		if(zookeeperAddress == null){
 			throw new RuntimeException("zookeeperAddress不能为空");
